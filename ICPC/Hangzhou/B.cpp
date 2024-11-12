@@ -21,8 +21,7 @@ struct Tag {
 };
 
 Info operator+(const Info &a, const Info &b) {
-	// std::cout << a.val << ' ' << b.val << ' ' << a.v << ' ' << b.v << '\n';
-		return {a.val & b.val, a.v | b.v | (~(a.val | b.val | a.v | b.v))};
+	return {a.val & b.val, a.v | b.v | (~(a.val | b.val | a.v | b.v))};
 }
 
 struct SegmentTree {
@@ -179,10 +178,6 @@ void solve() {
 		tr.modify(i, Info(x, 0));
 	}
 	
-	// for (int j = 1; j <= n; j++) {
-		// std::cout << tr.query(j, j).val << " \n"[j == n];
-	// } 
-	
 	for (int i = 1; i <= q; i++) {
 		int op;
 		std::cin >> op;
@@ -203,36 +198,21 @@ void solve() {
 			}
 			Info ret = tr.query(l, r);
 			int pos = -1;
-			// test(std::bitset<100>(ret.val));
-			// test(std::bitset<100>(ret.v));
 			for (int j = 63; j >= 0; j--) {
-				// std::cout << (ret.v >> j & 1);
 				if (!(ret.val >> j & 1) && !(ret.v >> j & 1)) {
 					pos = j;
 					break;
 				}
 			} 
-			// std::cout << '\n';
-			// test("pos = ", pos);
 			if (pos == -1) {
 				std::cout << ret.val << '\n';
 			} else {
 				int p = tr.find(1, 1, n, l, r, pos);
 				int ls = tr.query(l, p - 1).val;
 				int rs = tr.query(p + 1, r).val;
-				// test(p);
 				std::cout << (ls & rs) << '\n';
 			}
 		}
-		
-		// for (int j = 1; j <= n; j++) {
-			// std::cout << tr.query(j, j).val << " \n"[j == n];
-		// }
-		// for (int i = 1; i <= n; i++) {
-			// for (int j = i; j <= n; j++) {
-				// std::cout << i << ' ' << j << '\n' << std::bitset<100>(tr.query(i, j).v) << '\n' << std::bitset<100>(tr.query(i, j).val) << "\n";
-			// }
-		// }
 	}
 }
 
