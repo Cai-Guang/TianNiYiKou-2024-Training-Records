@@ -1,0 +1,5 @@
+# Problem exported by DOMjudge on 2024-11-12T15:10:28+08:00
+name: 'Make It Divisible'
+validation: custom
+limits:
+    memory: 1024
